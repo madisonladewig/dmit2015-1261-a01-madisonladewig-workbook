@@ -23,7 +23,8 @@ public class GreetingBean {
             return "";
         }
 
-        return String.format("Welcome $s to DMIT2015!", firstName);
+        //return "Welcome [name] to DMIT2015!"
+        return String.format("Welcome %s to DMIT2015!", firstName);
     }
 
 }

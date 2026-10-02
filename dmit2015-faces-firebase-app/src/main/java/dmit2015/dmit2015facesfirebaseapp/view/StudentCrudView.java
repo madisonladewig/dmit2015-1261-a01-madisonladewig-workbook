@@ -12,6 +12,7 @@ import net.datafaker.Faker;
 import org.omnifaces.util.Messages;
 import org.primefaces.PrimeFaces;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
 
 @Named("currentStudentCrudView")
 @ViewScoped //create this object for one HTTP request and keep in memory if the next is for the same page
-public class StudentCrudView {
+public class StudentCrudView implements Serializable {
 
     @Inject
     @Named("firebaseMultiTenantHttpClientStudentService")
@@ -93,7 +94,7 @@ public class StudentCrudView {
 
                 selectedStudent = null;
             } else {
-                studentService.updateStuden(selectedStudent);
+                studentService.updateStudent(selectedStudent);
 
                 Messages.addGlobalInfo("Update was successful");
             }
@@ -135,7 +136,7 @@ public class StudentCrudView {
         Throwable causes = ex;
 
         while (causes.getCause() != null) {
-            details.append(ex.Message());
+            details.append(ex.getMessage());
             details.append("    Caused By:");
             details.append(causes.getCause().getMessage());
             causes = causes.getCause();

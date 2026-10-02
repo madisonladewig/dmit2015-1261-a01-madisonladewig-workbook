@@ -38,7 +38,7 @@
                                          icon="pi pi-plus"
                                          actionListener="#{currentStudentCrudView.onOpenNew}"
                                          update=":dialogs:manage-Student-content"
-                                         onComplete="PF('manageStudentDialog').show()"
+                                         oncomplete="PF('manageStudentDialog').show()"
                                          styleClass="ui-button-success"
                                          style="margin-right: 0.5rem">
                             <p:resetInput target=":dialogs:manage-Student-content" />
@@ -50,7 +50,7 @@
                              value="#{currentStudentCrudView.students}"
                              var="currentItem"
                              reflow="true"
-                             selection="#{currentStudentCrudView.selectedStudents}"
+                             selection="#{currentStudentCrudView.selectedStudent}"
                              rowKey="#{currentItem.id}"
                              paginator="true" rows="10"
                              paginatorPosition="bottom">
@@ -80,10 +80,18 @@
 
                     <p:column exportable="false" ariaHeaderText="Actions">
                         <p:commandButton icon="pi pi-pencil"
-                                         update=":dialog:manage-Student-content"
+                                         update=":dialogs:manage-Student-content"
                                          oncomplete="PF('manageStudentDialog').show()"
                                          styleClass="edit-button rounded-button ui-button-success"
                                          process="@this">
+
+                            <p:commandButton icon="pi pi-trash"
+                                             styleClass="rounded-button ui-button-danger"
+                                             process="@this"
+                                             oncomplete="PF('deleteStudentDialog').show()">
+                                <f:setPropertyActionListener value="#{currentItem}"
+                                                             target="#{currentStudentCrudView.selectedStudent}" />
+                            </p:commandButton>
 
                             <f:setPropertyActionListener value="#{currentItem}"
                                                          target="#{currentStudentCrudView.selectedStudent}" />
@@ -114,7 +122,7 @@
                             </div>
 
                             <div class="field">
-                                <p:outputLabel for="@next>Last Name"></p:outputLabel>
+                                <p:outputLabel for="@next">Last Name></p:outputLabel>
                                 <p:inputText id="lastName"
                                              value="#{currentStudentCrudView.selectedStudent.lastName}">
                                 </p:inputText>
@@ -134,7 +142,7 @@
                         <p:commandButton id="generateDaaButton"
                                          value="Generate Data"
                                          icon="pi pi-calculator"
-                                         actionListener="#{currentStudentCrudView.onGenerateData}"
+                                         actionListener="#{currentStudentCrudView.onGeneratedData}"
                                          update="manage-Student-content"
                                          process="@this" />
 
@@ -151,7 +159,7 @@
                 <p:confirmDialog widgetVar="deleteStudentDialog" showEffect="fade" width="300"
                                  message="Delete the Student?" header="Confirm" severity="warn">
 
-                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{curentStudentCrudView.onDelete}"
+                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{currentStudentCrudView.onDelete}"
                                      process="@this"
                                      oncomplete="PF('deleteStudentDialog').hide()" />
 

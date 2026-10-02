@@ -12,8 +12,8 @@ public class Student {
 
     private String id;
 
-    @NotBlank(message = "First Name is required");
-    @Size(min = 1, message = "First Name must contain {min} or more characters");
+    @NotBlank(message = "First Name is required")
+    @Size(min = 1, message = "First Name must contain {min} or more characters")
     private String firstName;
 
     @NotBlank(message = "Last Name is required")

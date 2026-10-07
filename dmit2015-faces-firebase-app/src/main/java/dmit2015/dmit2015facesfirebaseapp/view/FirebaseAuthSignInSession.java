@@ -48,7 +48,7 @@ public class FirebaseAuthSignInSession implements Serializable {
 
         if (firebaseAuthSignInResponsePayload == null || firebaseAuthSignInResponsePayload.getIdToken() == null) {
             return "/firebaseAuthSignIn?requestURI=" + Utils.encodeURI(Faces.getRequestURI());
-        } else if (firebaseAuthSignInResponsePayload.getExpiresInDateTime().isAfter(LocalDateTime.now())) {
+        } else if (firebaseAuthSignInResponsePayload.getExpiresInDateTime().isBefore(LocalDateTime.now())) {
             JsonObject requestBodyPayload = Json.createObjectBuilder()
                     .add("grant_type","refresh_token")
                     .add("refresh_token", firebaseAuthSignInResponsePayload.getRefreshToken())
